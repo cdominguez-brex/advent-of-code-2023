@@ -17,7 +17,7 @@ fun main() {
     part2(input).println()
 }
 
-data class Game(
+private data class Game(
     val id: Int,
     val draws: List<RGB>,
 ) {
@@ -32,7 +32,7 @@ data class Game(
     )
 }
 
-data class RGB(
+private data class RGB(
     var red: Int = 0,
     var green: Int = 0,
     var blue: Int = 0,
@@ -40,7 +40,7 @@ data class RGB(
     fun power() = red * green * blue
 }
 
-fun String.parseGame(): Game {
+private fun String.parseGame(): Game {
     val (game, draws) = split(": ")
     return Game(
         id = game.split(" ")[1].toInt(),

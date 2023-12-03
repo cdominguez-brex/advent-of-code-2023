@@ -20,7 +20,7 @@ fun main() {
     part2(input).println()
 }
 
-val digitsPt1 = mapOf(
+private val digitsPt1 = mapOf(
     "1" to 1,
     "2" to 2,
     "3" to 3,
@@ -32,7 +32,7 @@ val digitsPt1 = mapOf(
     "9" to 9,
 )
 
-val digitsPt2 = digitsPt1 + mapOf(
+private val digitsPt2 = digitsPt1 + mapOf(
     "one" to 1,
     "two" to 2,
     "three" to 3,
