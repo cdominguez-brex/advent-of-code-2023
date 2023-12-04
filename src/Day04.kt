@@ -4,18 +4,15 @@ fun main() {
     }
 
     fun part2(input: List<String>): Int {
-        val scratchcards = input.associate {
-            val scratchcard = it.parseScratchcard()
-            scratchcard.id to scratchcard
-        }
+        val scratchcards = input.map { it.parseScratchcard() }.toTypedArray()
 
-        for (scratchcard in scratchcards.values) {
+        for ((ix, scratchcard) in scratchcards.withIndex()) {
             for (i in 1..scratchcard.numbersInCommon().size) {
-                scratchcards[scratchcard.id + i]!!.numPossessed += scratchcard.numPossessed
+                scratchcards[ix + i].numPossessed += scratchcard.numPossessed
             }
         }
 
-        return scratchcards.values.sumOf { it.numPossessed }
+        return scratchcards.sumOf { it.numPossessed }
     }
 
     // test if implementation meets criteria from the description, like:
@@ -29,7 +26,6 @@ fun main() {
 }
 
 private data class Scratchcard(
-    val id: Int,
     val winningNumbers: Set<Int>,
     val yourNumbers: Set<Int>,
     var numPossessed: Int = 1,
@@ -39,10 +35,9 @@ private data class Scratchcard(
 }
 
 private fun String.parseScratchcard(): Scratchcard {
-    val (card, numbers) = split(": ")
+    val (_, numbers) = split(": ")
     val (winners, yours) = numbers.split(" | ")
     return Scratchcard(
-        id = card.split(" ").last().toInt(),
         winningNumbers = winners.split(" ").mapNotNull { it.takeIf { it.isNotBlank() }?.toInt() }.toSet(),
         yourNumbers = yours.split(" ").mapNotNull { it.takeIf { it.isNotBlank() }?.toInt() }.toSet(),
     )
